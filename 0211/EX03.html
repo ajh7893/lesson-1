@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+   $(document).ready(
+         function() {
+            window.onload = function() {
+               var now = new Date();
+               var year = now.getFullYear();
+               var mm = now.getMonth();
+               var dd = now.getDate();
+               var date = now.getDay();
+               var lastday = new Date(year, mm+1, 0).getDate();
+               
+               
+               //이전달 버튼 이벤트
+               $('#before').on("click", function(e) {
+                  //이전달시간 변수생성
+                  now.setMonth(now.getMonth() - 1); 
+                  year = now.getFullYear();
+                  mm = now.getMonth();
+                  dd = now.getDate();
+                  date = now.getDay();
+                  lastday = new Date(year, mm+1, 0).getDate();
+                  //이전달 년,월 표시
+                  $('#year').find('p').text(year + "년 " + (mm+1) + "월");
+                  //기존내용 삭제
+                  $('#sun').find('p').remove();
+                  $('#mon').find('p').remove();
+                  $('#tues').find('p').remove();
+                  $('#wednes').find('p').remove();
+                  $('#thurs').find('p').remove();
+                  $('#fri').find('p').remove();
+                  $('#satur').find('p').remove();
+                  
+                  for (var i = 1; i <= 35; i++) {
+                     var daydate = new Date(year, mm, i).getDay();
+                     //일들 각 요일에 추가
+                     if (i <= lastday) {
+                     if (daydate == 0) {
+                        $('#sun').append("<p>" + i +"</p>");
+                     }else if (daydate == 1) {
+                        $('#mon').append("<p>" + i +"</p>");
+                     }else if (daydate == 2) {
+                        $('#tues').append("<p>" + i +"</p>");
+                     }else if (daydate == 3) {
+                        $('#wednes').append("<p>" + i +"</p>");
+                     }else if (daydate == 4) {
+                        $('#thurs').append("<p>" + i +"</p>");
+                     }else if (daydate == 5) {
+                        $('#fri').append("<p>" + i +"</p>");
+                     }else if (daydate == 6) {
+                        $('#satur').append("<p>" + i +"</p>");
+                     }
+                     }else{ //빈공간 체움
+                        if (daydate == 0) {
+                           $('#sun').append("<p>　</p>");
+                        }else if (daydate == 1) {
+                           $('#mon').append("<p>　</p>");
+                        }else if (daydate == 2) {
+                           $('#tues').append("<p>　</p>");
+                        }else if (daydate == 3) {
+                           $('#wednes').append("<p>　</p>");
+                        }else if (daydate == 4) {
+                           $('#thurs').append("<p>　</p>");
+                        }else if (daydate == 5) {
+                           $('#fri').append("<p>　</p>");
+                        }else if (daydate == 6) {
+                           $('#satur').append("<p>　</p>");
+                        }
+                     }
+                  }//첫요일row 맞춤
+                  var startdate = new Date(year, mm, 1).getDay();
+                  for (var i = startdate -1; i >= 0; i--) {
+                     if (i == 0) {
+                        $('#sun').find('p').first().before("<p>　</p>");
+                     }else if (i == 1) {
+                        $('#mon').find('p').first().before("<p>　</p>");
+                     }else if (i == 2) {
+                        $('#tues').find('p').first().before("<p>　</p>");
+                     }else if (i == 3) {
+                        $('#wednes').find('p').first().before("<p>　</p>");
+                     }else if (i == 4) {
+                        $('#thurs').find('p').first().before("<p>　</p>");
+                     }else if (i == 5) {
+                        $('#fri').find('p').first().before("<p>　</p>");
+                     }else if (i== 6) {
+                        $('#satur').find('p').first().before("<p>　</p>");
+                     }
+                  }//마지막주 row  맞춤
+                  for (var i = startdate; i <= 6; i++) {
+                     if (i == 0) {
+                        $('#sun').append("<p>　</p>");
+                     }else if (i == 1) {
+                        $('#mon').append("<p>　</p>");
+                     }else if (i == 2) {
+                        $('#tues').append("<p>　</p>");
+                     }else if (i == 3) {
+                        $('#wednes').append("<p>　</p>");
+                     }else if (i == 4) {
+                        $('#thurs').append("<p>　</p>");
+                     }else if (i == 5) {
+                        $('#fri').append("<p>　</p>");
+                     }else if (i== 6) {
+                        $('#satur').append("<p>　</p>");
+                     }
+                  }
+                  
+                  
+               });
+               
+               //다음달 버튼 이벤트
+               $('#after').on("click", function(e) {
+                  //다음달 변수생성
+                  now.setMonth(now.getMonth() + 1); 
+                  
+                  year = now.getFullYear();
+                  mm = now.getMonth();
+                  dd = now.getDate();
+                  date = now.getDay();
+                  lastday = new Date(year, mm+1, 0).getDate();
+                  //다음달 년,월표시
+                  $('#year').find('p').text(year + "년 " + (mm+1) + "월");
+                  //기존내용삭제
+                  $('#sun').find('p').remove();
+                  $('#mon').find('p').remove();
+                  $('#tues').find('p').remove();
+                  $('#wednes').find('p').remove();
+                  $('#thurs').find('p').remove();
+                  $('#fri').find('p').remove();
+                  $('#satur').find('p').remove();
+                  
+                  //일들 각 요일에 추가
+                  for (var i = 1; i <= 35; i++) {
+                     var daydate = new Date(year, mm, i).getDay();
+                     if (i <= lastday) {
+                     if (daydate == 0) {
+                        $('#sun').append("<p>" + i +"</p>");
+                     }else if (daydate == 1) {
+                        $('#mon').append("<p>" + i +"</p>");
+                     }else if (daydate == 2) {
+                        $('#tues').append("<p>" + i +"</p>");
+                     }else if (daydate == 3) {
+                        $('#wednes').append("<p>" + i +"</p>");
+                     }else if (daydate == 4) {
+                        $('#thurs').append("<p>" + i +"</p>");
+                     }else if (daydate == 5) {
+                        $('#fri').append("<p>" + i +"</p>");
+                     }else if (daydate == 6) {
+                        $('#satur').append("<p>" + i +"</p>");
+                     }
+                     }else{
+                        if (daydate == 0) {
+                           $('#sun').append("<p>　</p>");
+                        }else if (daydate == 1) {
+                           $('#mon').append("<p>　</p>");
+                        }else if (daydate == 2) {
+                           $('#tues').append("<p>　</p>");
+                        }else if (daydate == 3) {
+                           $('#wednes').append("<p>　</p>");
+                        }else if (daydate == 4) {
+                           $('#thurs').append("<p>　</p>");
+                        }else if (daydate == 5) {
+                           $('#fri').append("<p>　</p>");
+                        }else if (daydate == 6) {
+                           $('#satur').append("<p>　</p>");
+                        }
+                     }
+                  }//첫요일row 맞춤
+                  var startdate = new Date(year, mm, 1).getDay();
+                  for (var i = startdate -1; i >= 0; i--) {
+                     if (i == 0) {
+                        $('#sun').find('p').first().before("<p>　</p>");
+                     }else if (i == 1) {
+                        $('#mon').find('p').first().before("<p>　</p>");
+                     }else if (i == 2) {
+                        $('#tues').find('p').first().before("<p>　</p>");
+                     }else if (i == 3) {
+                        $('#wednes').find('p').first().before("<p>　</p>");
+                     }else if (i == 4) {
+                        $('#thurs').find('p').first().before("<p>　</p>");
+                     }else if (i == 5) {
+                        $('#fri').find('p').first().before("<p>　</p>");
+                     }else if (i== 6) {
+                        $('#satur').find('p').first().before("<p>　</p>");
+                     }
+                  }//마지막주 row  맞춤
+                  for (var i = startdate; i <= 6; i++) {
+                     if (i == 0) {
+                        $('#sun').append("<p>　</p>");
+                     }else if (i == 1) {
+                        $('#mon').append("<p>　</p>");
+                     }else if (i == 2) {
+                        $('#tues').append("<p>　</p>");
+                     }else if (i == 3) {
+                        $('#wednes').append("<p>　</p>");
+                     }else if (i == 4) {
+                        $('#thurs').append("<p>　</p>");
+                     }else if (i == 5) {
+                        $('#fri').append("<p>　</p>");
+                     }else if (i== 6) {
+                        $('#satur').append("<p>　</p>");
+                     }
+                  }
+                  
+               });
+               //현재시간 시간변수생성
+               var NowTime = '';
+               NowTime += ' ' + now.getHours();
+               if (now.getMinutes() < 10) {
+               NowTime += ':0'  + now.getMinutes();
+               }else{
+                  NowTime += ':' + now.getMinutes();
+               }
+               if (now.getSeconds() < 10) {
+                  NowTime += ':0'  + now.getSeconds();
+               }else{
+                  NowTime += ':' + now.getSeconds();
+               }
+
+
+
+               //현재 년,월 표시
+               $('#year').append(
+                     "<p id = yy align = 'center'>" + year + "년 " + (mm+1)
+                     + "월" + "</p>");
+               
+               //일들 각 요일에 추가
+               for (var i = 1; i <= 35; i++) {
+                  var daydate = new Date(year, mm, i).getDay();
+                  //현재시간일경우 시간추가
+                  if( i == dd ){
+                     if (daydate == 0) {               
+                        $('#sun').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 1) {
+                        $('#mon').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 2) {
+                        $('#tues').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 3) {
+                        $('#wednes').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 4) {
+                        $('#thurs').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 5) {
+                        $('#fri').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }else if (daydate == 6) {
+                        $('#satur').append("<p id = 'now'>" + i + "<br>"+ NowTime +"</p>");
+                     }
+                  }else{
+                  if (i <= lastday) {
+                  if (daydate == 0) {               
+                     $('#sun').append("<p>" + i +"</p>");
+                  }else if (daydate == 1) {
+                     $('#mon').append("<p>" + i +"</p>");
+                  }else if (daydate == 2) {
+                     $('#tues').append("<p>" + i +"</p>");
+                  }else if (daydate == 3) {
+                     $('#wednes').append("<p>" + i +"</p>");
+                  }else if (daydate == 4) {
+                     $('#thurs').append("<p>" + i +"</p>");
+                  }else if (daydate == 5) {
+                     $('#fri').append("<p>" + i +"</p>");
+                  }else if (daydate == 6) {
+                     $('#satur').append("<p>" + i +"</p>");
+                  }
+                  }else{
+                     if (daydate == 0) {
+                        $('#sun').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 1) {
+                        $('#mon').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 2) {
+                        $('#tues').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 3) {
+                        $('#wednes').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 4) {
+                        $('#thurs').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 5) {
+                        $('#fri').find('p').first().before("<p>　</p>");
+                     }else if (daydate == 6) {
+                        $('#satur').find('p').first().before("<p>　</p>");
+                     }
+                  }
+               }}
+            }
+            
+         })
+</script>
+
+<style type="text/css">
+div {
+   border: 1px solid white;
+   width: auto;
+   height: auto;
+   margin: 10px;
+}
+#now {
+   color: red;
+}
+#yy {
+   background: yellow;
+   width: auto;
+   height: auto;
+   font-size: 30px;
+   font-weight: bold;
+}
+
+p {
+   border: 1px #eeeeee solid;
+   background: pink;
+   height: 40px;
+   width: 100px;
+}
+</style>
+</head>
+<body>
+   <table id="date">
+      <tr>
+         <td id="year" colspan="7"></td>
+      </tr>
+      <tr>
+         <td id="sun">일 </td>
+         <td id="mon">월</td>
+         <td id="tues">화</td>
+         <td id="wednes">수</td>
+         <td id="thurs">목</td>
+         <td id="fri">금</td>
+         <td id="satur">토</td>
+      </tr>
+   </table>
+   
+   <button id = "before">이전달</button>
+   <button id = "after">다음달</button>
+</body>
+</html>

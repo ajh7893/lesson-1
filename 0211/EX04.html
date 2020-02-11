@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		//div 태그를 가져온다.
+		var tree = new CreateTree(document.getElementById('div'));
+
+		//메뉴객체 생성
+		//name : a 태그에 나타나는 내용
+		//href : a 태그에 사용될 URL
+		//target: a 태그의 target 속성
+		//icon : 기본 아이콘 대신할 아이콘 URL
+		//child : 자식배열
+
+		//root객체 , 실제로 보이지 않는다.
+		var data = {
+			"name" : "name",
+			"href" : "A링크",
+			"target" : "target",
+			"icon" : "",
+			"child" : []
+		};
+
+		//자식객체를 생성
+		var childA = {
+			'name' : '관리자메뉴',
+			'href' : '',
+			'target' : ' ',
+			'icon' : '',
+			'child' : []
+		};
+		var childB = {
+			'name' : '직원메뉴',
+			'href' : '',
+			'target' : ' ',
+			'icon' : '',
+			'child' : []
+		};
+		var childC = {
+			'name' : '관리자메뉴',
+			'href' : '',
+			'target' : ' ',
+			'icon' : '',
+			'child' : []
+		};
+
+		//자식1을 맨위 개체에 붙이기
+		data.child.push(childA);
+		data.child.push(childB);
+		data.child.push(childC);
+
+		//자식1의 하위개체를 생성
+		var childA1 = {
+			'name' : '부하직원조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childA2 = {
+			'name' : '결재승인',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childA3 = {
+			'name' : '결재내역조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childB1 = {
+			'name' : '결재신청',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childB2 = {
+			'name' : '급여정보조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childB3 = {
+			'name' : '인사정보조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childC1 = {
+			'name' : '기준관리',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childC2 = {
+			'name' : '근무현황조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+		var childC3 = {
+			'name' : '평가현황조회',
+			'href' : 'http://w3.schools.com',
+			'target' : '_blank',
+			'icon' : '',
+			'child' : []
+		};
+
+		//자식 1의 하위객체 붙이기
+		childA.child.push(childA1);
+		childA.child.push(childA2);
+		childA.child.push(childA3);
+		childB.child.push(childB1);
+		childB.child.push(childB2);
+		childB.child.push(childB3);
+		childC.child.push(childC1);
+		childC.child.push(childC2);
+		childC.child.push(childC3);
+
+		//트리에 메뉴 객체를 연결
+		tree.data_init(data);
+
+		//트리메뉴를 화면에 보여준다.
+		//tree.createView();
+
+		//생성자 - 매개변수 받아오기
+		function CreateTree(document1) {
+
+			//document1를 doc로 받아오기
+			var doc = document1;
+
+			//트리 인잇 함수 트리에 객체를 연결하기.   ===##
+			this.data_init = function(root) {
+
+				//data(root)의 자식 childA, childB, childC 가져오기(객체 값 가져오기)
+				for ( var i in root.child) {
+					//root의 자식 div생성
+					var div = document.createElement("div");
+					var img = document.createElement("img");
+					//이미지 변경 불리언
+					var changFlag = false;
+					img.setAttribute("src", "menu03.gif");
+					img.setAttribute("class", "target" + i);
+					div.append(img);
+					//data의 자식을 배열로 이름 추가, 속성 셋팅
+					div.append(root.child[i].name);
+					div.setAttribute('href', root.child[i].href);
+					//
+					div.setAttribute('class', 'page' + i);
+					//아래 값을셋팅 하면 값이 없어서 안들어간다고 나옴;;;
+					/*console.log(root.chilid[i].target);
+					div.setAttribute('target',root.chilid[i].target); 
+					div.setAttribute('icon',root.chilid[i].icon);*/
+
+					console.log("루트의 자식들" + div);
+					//data의 자식의 자식 A1~C3
+					for ( var j in root.child[i].child) {
+						var div_1 = document.createElement("div");
+
+						//a태그 생성 - > 링크
+						var a = document.createElement("a");
+						//이미지태그 생성
+						var img2 = document.createElement("img");
+						//이미지 속성추가 주소
+						img2.setAttribute("src", "menu01.gif");
+						//사이즈
+						//img.setAttribute("width",12);
+						console.log(root.child[i]);
+						//이미지 넣기 
+						a.append(img2);
+						a.append("");
+						a.append(root.child[i].child[j].name);
+						//a태그 속성 추가
+						a.setAttribute('class', 'page' + i + j);
+						a.setAttribute('href', root.child[i].child[j].href);
+						a.setAttribute('target', root.child[i].child[j].target);
+						a.setAttribute('icon', root.child[i].child[j].icon);
+
+						//div_1(roor자식의 자식)에 a태그 넣기
+						div_1.append(a);
+						//div에 (root자식)에 div_1넣기
+						div.append(div_1);
+						console.log("자식이 포함된 루트의 자식들" + div);
+					}
+					doc.append(div);
+					console.log(doc);
+				}
+
+				//클릭 이벤트
+				$(document).ready(function() {
+
+					$('.page0').click(function() {
+						if (changFlag == true) {
+							$(".target0").attr("src", "menu03.gif");
+							$('.page00').toggle('slow');
+							$('.page01').toggle('slow');
+							$('.page02').toggle('slow');
+							changFlag = false;
+
+						} else {
+							$(".target0").attr("src", "menu02.gif");
+							$('.page00').toggle('slow');
+							$('.page01').toggle('slow');
+							$('.page02').toggle('slow');
+							changFlag = true;
+						}
+					});
+					$('.page1').click(function() {
+						if (changFlag == true) {
+							$(".target1").attr("src", "menu03.gif");
+							$('.page10').toggle('slow');
+							$('.page11').toggle('slow');
+							$('.page12').toggle('slow');
+							changFlag = false;
+						} else {
+							$(".target1").attr("src", "menu02.gif");
+							$('.page10').toggle('slow');
+							$('.page11').toggle('slow');
+							$('.page12').toggle('slow');
+							changFlag = true;
+						}
+					});
+					$('.page2').click(function() {
+						if (changFlag == true) {
+							$(".target2").attr("src", "menu03.gif");
+							$('.page20').toggle('slow');
+							$('.page21').toggle('slow');
+							$('.page22').toggle('slow');
+							changFlag = false;
+						} else {
+							$(".target2").attr("src", "menu02.gif");
+							$('.page20').toggle('slow');
+							$('.page21').toggle('slow');
+							$('.page22').toggle('slow');
+							changFlag = true;
+						}
+					});
+				});
+			}
+		}
+	}
+</script>
+<body>
+	<div id="div"></div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

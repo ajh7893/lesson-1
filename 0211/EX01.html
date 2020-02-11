@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<!-- 1. 동적 추가 메뉴 만들기 (jQuery)
+ 추가: input에 입력된 메뉴명을 선택한 Row 하단에 추가
+ 수정: 선택한 Row의 메뉴명을 input에 입력한뒤 수정버튼을 클릭하면 메뉴명 수정처리
+ 삭제: 선택한 메뉴명 삭제
+ UP: 선택한 Row를 상단으로 이동
+ DOWN: 선택한 Row를 하단으로 이동 -->
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var select = "";
+
+		//행선택
+		$('#menu').on('click', 'P', function() {
+			$(this).css('background', 'gray');
+			$(this).siblings().css('background', 'white');
+			select = $(this);
+		});
+		//행수정
+		$('#update').on("click", function(e) {
+			var text2 = $('#a').val();
+			if (!select) {
+				alert('수정할 요소를 선택해주세요');
+			} else
+				$(select).text(text2);
+			$(select).css('background', 'white');
+			select = "";
+			$('#a').val('');
+		});
+		//행추가
+		$('#input').on("click", function(e) {
+			var text1 = $('#a').val();
+			if(text1 != ""){
+			if (!select) {
+				$('#menu').append("<p>" + text1 + "</p>");
+				$('#a').val('');
+			} else {
+				$(select).after("<p>" + text1 + "</p>");
+				$(select).css('background', 'white');
+				select = "";
+				$('#a').val('');
+			}}else{
+				alert("내용을 입력해주세요")
+			}
+		});
+		//행삭제
+		$('#del').on("click", function(e) {
+			var text2 = $('#a').val();
+			if (!select) {
+				alert('삭제할 요소를 선택해주세요');
+			} else
+				$(select).remove();
+			select = "";
+			$('#a').val('');
+		});
+		//위로이동
+		$('#up').on("click", function(e) {
+			if (!select) {
+				alert('선택된 요소가 없습니다.')
+			} else {
+				$(select).insertBefore(select.prev());
+			}
+		});
+		//아래이동
+		$('#down').on("click", function(e) {
+			if (!select) {
+				alert('선택된 요소가 없습니다.')
+			} else {
+				$(select).insertAfter(select.next());
+			}
+		});
+	})
+</script>
+<style type="text/css">
+#menu {
+	border: 1px solid black;
+	width: 450px;
+	height: auto;
+	margin: 10px;
+}
+
+p {
+	border: 1px #eeeeee solid;
+	margin: 10px;
+}
+</style>
+</head>
+<body>
+	<input type="text" id="a">
+	<button id="input">추가</button>
+	<button id="update">수정</button>
+	<button id="del">삭제</button>
+	<button id="up">UP</button>
+	<button id="down">DOWN</button>
+	<br>
+	<br>
+	<div id="menu"></div>
+
+</body>
+</html>

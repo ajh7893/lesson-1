@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+  table {
+    width: 100%;
+    border: 1px solid #333333;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid #333333;
+  }
+  .a {
+    border-collapse: separate;   /* 간격존재 */
+    /*border-collapse: collapse; */  /* 간격제거 */
+  }
+</style>
+<script type="text/javascript">
+	function ex2() {
+
+		function make(tagname, attributes, children) {
+
+			//태그 생성
+			var tag = document.createElement(tagname);
+
+			//속성 메개변수를 담을 변수 선언 
+			var att = attributes;
+
+			//속성은 프로퍼티이므로 포이치문을 사용하여 프로퍼티값을 셋팅한다.
+			for ( var i in att) {
+
+				//태그 속성에 프로퍼티명과 프로퍼티값을 속성으로 추가한다. i=프로퍼티명 att[i]는 프로퍼티 값
+				tag.setAttribute(i, att[i]);
+			}
+
+			//children매개 변수가 스트링일 경우
+			if (typeof children == 'string') {
+
+				//tag속성에 텍스트 노드 값 추가
+				tag.appendChild(document.createTextNode(children));
+				//return tag;
+			// 오브젝트이고 배열이라면
+			}  else if (typeof children == 'object' && Array.isArray(children)) {
+				console.log(typeof children);
+				for ( var j in children) {
+					tag.appendChild(children[j]); //<tr><td>Name</td>,<td>Type</td>,<td>Value</td></tr>
+				}
+			// 오브젝트만 처리   
+			} else if (typeof children == 'object') {
+				tag.appendChild(children);
+			} 
+			return tag;
+		}
+
+		var body = document.getElementsByTagName('body')[0];
+		var div = make("div", {	'style' : 'background-color:red;',	'id' : 'div1'	}, "hello world");
+		body.appendChild(div);
+		var tds = [ make("td", {}, "Name"), make("td", {}, "Type"),	make("td", {}, "Value") ];
+		console.log(typeof tds);
+		console.log(Array.isArray(tds));//true (arr,obj)
+		var tr = make("tr", {}, tds);
+		console.log(typeof tr);
+		console.log(Array.isArray(tr));//false(object)
+		var table = make("table", {	'style' : 'border : 1px solid red;'	}, tr);
+		console.log(typeof table);
+		console.log(Array.isArray(table));//false(object)
+		body.appendChild(table);
+
+	};
+</script>
+</head>
+<body onload = "ex2()">
+
+
+
+
+</body>
+</html>
